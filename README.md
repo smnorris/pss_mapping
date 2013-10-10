@@ -1,17 +1,11 @@
-BootLeaf
+Peninsula Streamkeepers Society Web Mapping
 ========
 
-Simple templates for building web mapping applications with Bootstrap 3 and Leaflet.
+Forked from bootleaf: http://bmcbride.github.io/bootleaf
 
-* Simple Demo: http://bmcbride.github.io/bootleaf/
-* Sidebar Demo: http://bmcbride.github.io/bootleaf/sidebar.html
+### Next steps:
+* highlight and zoom to watershed when selected
+* color watersheds distinctly
+* search for place names to zoom to (BCGNIS clipped to area of interest)
+* add different background mapping (satellite, etc)
 
-### Features:
-* Fullscreen mobile-friendly map template with responsive Navbar and modal placeholders
-* jQuery loading of external GeoJSON files
-* Elegant client-side multi-layer feature search with autocomplete using Twitter's typeahead.js
-* Integration of Bootstrap tables into Leaflet popups
-* Logic for minimizing Layer Control and removing Scale Control on small screens
-* Marker icons included in Layer Control
-
-![screenshot](http://bmcbride.github.io/bootleaf/screenshot.jpg)
