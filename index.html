@@ -49,7 +49,6 @@
         .navbar .navbar-brand {
             font-weight: bold;
             font-size: 25px;
-            color: white;
         }
         .navbar {
             opacity: 1;
@@ -134,7 +133,7 @@
 
   <body>
 
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar navbar-fixed-top">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                 <span class="icon-bar"></span>
@@ -151,8 +150,8 @@
                 </div>
             </form>
             <ul class="nav navbar-nav">
-                <li><a href="#" data-toggle="collapse" data-target=".navbar-collapse.in" onclick="$('#aboutModal').modal('show'); return false;"><i class="icon-question-sign" style="color: white"></i>&nbsp;&nbsp;About</a></li>
-                <li><a href="#" data-toggle="collapse" data-target=".navbar-collapse.in" onclick="$('#contactModal').modal('show'); return false;"><i class="icon-envelope" style="color: white"></i>&nbsp;&nbsp;Contact</a></li>
+                <li><a href="#" data-toggle="collapse" data-target=".navbar-collapse.in" onclick="$('#aboutModal').modal('show'); return false;"><i class="icon-question-sign"></i>&nbsp;&nbsp;About</a></li>
+                <li><a href="#" data-toggle="collapse" data-target=".navbar-collapse.in" onclick="$('#contactModal').modal('show'); return false;"><i class="icon-envelope"></i>&nbsp;&nbsp;Contact</a></li>
                
                
             </ul>
@@ -211,7 +210,7 @@
                         <div class="tab-pane fade" id="boroughs-tab">
                             <p>Borough data courtesy of <a href="http://www.nyc.gov/html/dcp/html/bytes/meta_dis_nyboroughwi.shtml" target="_blank">New York City Department of City Planning</a></p>
                         </div>
-                        <div class="tab-pane fade" id="subway-lines-tab">
+                        <div class="tab-pane fade" id="subway-lines-tab">   
                             <p><a href="http://spatialityblog.com/2010/07/08/mta-gis-data-update/#datalinks" target="_blank">MTA Subway data</a> courtesy of the <a href="http://www.urbanresearch.org/about/cur-components/cuny-mapping-service" target="_blank">CUNY Mapping Service at the Center for Urban Research</a></p>
                         </div>
                         <div class="tab-pane fade" id="theaters-tab">
@@ -334,13 +333,17 @@
         var watersheds = L.geoJson(null, {
             style: function (feature) {
                 return {
-                    color: 'black',
-                    fill: false,
-                    opacity: 1,
-                    clickable: false
+                    color: 'red',
+                    weight: 1,
+                    fillColor: '#f03',
+                    fillOpacity: 0.1
+                    
                 };
             },
             onEachFeature: function (feature, layer) {
+
+                layer.bindPopup(feature.properties.Name);
+      
                 watershedSearch.push({
                     value: layer.feature.properties.Name,
                     tokens: [layer.feature.properties.Name],
