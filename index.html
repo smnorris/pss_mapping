@@ -18,7 +18,7 @@
     <![endif]-->
 
     <!-- Link to geojson data as per  http://sgillies.net/blog/2013/10/08/linking-geojson.html -->
-    <link rel="location" type="application/json" href="data/wsds.geojson"/>
+    <link rel="location" type="application/json" href="data/pss_wsds.geojson"/>
 
     <!-- Custom styles for this template -->
     <style>
@@ -152,8 +152,8 @@
             <ul class="nav navbar-nav">
                 <li><a href="#" data-toggle="collapse" data-target=".navbar-collapse.in" onclick="$('#aboutModal').modal('show'); return false;"><i class="icon-question-sign"></i>&nbsp;&nbsp;About</a></li>
                 <li><a href="#" data-toggle="collapse" data-target=".navbar-collapse.in" onclick="$('#contactModal').modal('show'); return false;"><i class="icon-envelope"></i>&nbsp;&nbsp;Contact</a></li>
-               
-               
+
+
             </ul>
         </div><!--/.navbar-collapse -->
     </div>
@@ -210,7 +210,7 @@
                         <div class="tab-pane fade" id="boroughs-tab">
                             <p>Borough data courtesy of <a href="http://www.nyc.gov/html/dcp/html/bytes/meta_dis_nyboroughwi.shtml" target="_blank">New York City Department of City Planning</a></p>
                         </div>
-                        <div class="tab-pane fade" id="subway-lines-tab">   
+                        <div class="tab-pane fade" id="subway-lines-tab">
                             <p><a href="http://spatialityblog.com/2010/07/08/mta-gis-data-update/#datalinks" target="_blank">MTA Subway data</a> courtesy of the <a href="http://www.urbanresearch.org/about/cur-components/cuny-mapping-service" target="_blank">CUNY Mapping Service at the Center for Urban Research</a></p>
                         </div>
                         <div class="tab-pane fade" id="theaters-tab">
@@ -337,13 +337,13 @@
                     weight: 1,
                     fillColor: '#f03',
                     fillOpacity: 0.1
-                    
+
                 };
             },
             onEachFeature: function (feature, layer) {
 
                 layer.bindPopup(feature.properties.Name);
-      
+
                 watershedSearch.push({
                     value: layer.feature.properties.Name,
                     tokens: [layer.feature.properties.Name],
@@ -353,7 +353,7 @@
                 });
             }
         });
-        
+
 
         var watersheds_uri = $('link[rel="location"]').attr("href");
 
@@ -361,7 +361,7 @@
             watersheds.addData(data);
         }).complete(function () {
         });
-     
+
 
         map = L.map("map", {
             zoom: 11,
