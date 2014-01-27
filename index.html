@@ -10,12 +10,8 @@
     <!-- Core CSS -->
     <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <link href="http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link href="css/typeahead.js-bootstrap.css" rel="stylesheet" type="text/css"> <!--https://github.com/jharding/typeahead.js-bootstrap.css-->
-    <link href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.css" rel="stylesheet" type="text/css">
-    <!--[if lte IE 8]>
-        <link href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.ie.css" rel="stylesheet" type="text/css">
-        <link href="http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome-ie7.min.css" rel="stylesheet">
-    <![endif]-->
+    <link href="assets/typeahead.js/typeahead.js-bootstrap.css" rel="stylesheet" type="text/css"> <!--https://github.com/jharding/typeahead.js-bootstrap.css-->
+    <link href="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.css" rel="stylesheet" type="text/css">
 
     <!-- Link to geojson data as per  http://sgillies.net/blog/2013/10/08/linking-geojson.html -->
     <link rel="location" type="application/json" href="data/pss_wsds.geojson"/>
@@ -91,10 +87,13 @@
             opacity: 0.9;
         }
         .leaflet-popup-content {
-            margin-top: 14px;
-            margin-bottom: 0px;
-            margin-left: 20px;
-            margin-right: 20px;
+               margin-top: 5px;
+                margin-bottom: 5px;
+                margin-left: 5px;
+                margin-right: 17px;
+        }
+        .leaflet-popup-content-wrapper {
+                border-radius: 5px;
         }
         @media (max-width: 992px) {
             .navbar .navbar-brand {
@@ -301,8 +300,8 @@
 
     <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
     <script type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="js/typeahead.min.js"></script> <!--https://github.com/twitter/typeahead.js/-->
-    <script type="text/javascript" src="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.js"></script>
+    <script type="text/javascript" src="assets/typeahead.js/typeahead.min.js"></script> <!--https://github.com/twitter/typeahead.js/-->
+    <script type="text/javascript" src="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.js"></script>
     <script type="text/javascript">
         var map, watershedSearch = [];
 
@@ -409,36 +408,9 @@
                 local: watershedSearch,
                 minLength: 2,
                 header: '<h4 class="typeahead-header">Watersheds</h4>'
-            },{
-                name: 'GeoNames',
-                remote: {
-                    url: 'http://ws.geonames.org/searchJSON?featureClass=P&maxRows=5&countryCode=US&name_startsWith=%QUERY',
-                    beforeSend: function(jqXhr, settings) {
-                        settings.url += '&east='+map.getBounds().getEast()+'&west='+map.getBounds().getWest()+'&north='+map.getBounds().getNorth()+'&south='+map.getBounds().getSouth();
-                    },
-                    filter: function(parsedResponse) {
-                        var dataset = [];
-                        for(i = 0; i < parsedResponse.geonames.length; i++) {
-                            dataset.push({
-                                value: parsedResponse.geonames[i].name,
-                                tokens: [parsedResponse.geonames[i].name],
-                                layer: 'GeoNames',
-                                lat: parsedResponse.geonames[i].lat,
-                                lng: parsedResponse.geonames[i].lng
-                            });
-                        }
-                        return dataset;
-                    }
-                },
-                minLength: 2,
-                limit: 5,
-                header: '<h4 class="typeahead-header"><img src="img/globe.png" width="25" height="25">&nbsp;GeoNames Places</h4>'
-              }]).on('typeahead:selected', function (obj, datum) {
+            }]).on('typeahead:selected', function (obj, datum) {
                 if (datum.layer === 'Watersheds') {
                     map.fitBounds(datum.bounds);
-                };
-                if (datum.layer === 'GeoNames') {
-                    map.setView([datum.lat, datum.lng], 14);
                 };
                 if ($('#navbar-collapse').height() > 50) {
                     $('#navbar-collapse').collapse('hide');

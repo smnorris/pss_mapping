@@ -14,4 +14,3 @@ View current page here: http://smnorris.github.io/pss_mapping
 * search for place names to zoom to (BCGNIS clipped to area of interest)
 * add different background mapping (satellite, etc)
 
-logi
