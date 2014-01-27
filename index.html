@@ -95,6 +95,18 @@
         .leaflet-popup-content-wrapper {
                 border-radius: 5px;
         }
+        .info {
+                padding: 6px 8px;
+                font: 14px/16px Arial, Helvetica, sans-serif;
+                background: white;
+                background: rgba(255,255,255,0.8);
+                box-shadow: 0 0 15px rgba(0,0,0,0.2);
+                border-radius: 5px;
+        }
+        .info h4 {
+                margin: 0 0 5px;
+                color: #777;
+        }
         @media (max-width: 992px) {
             .navbar .navbar-brand {
                 font-size: 18px;
@@ -305,43 +317,66 @@
     <script type="text/javascript">
         var map, watershedSearch = [];
 
-        // Basemap Layers
-        var mapquestOSM = L.tileLayer("http://{s}.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.png", {
-            maxZoom: 19,
-            subdomains: ["otile1", "otile2", "otile3", "otile4"],
-            attribution: 'Tiles courtesy of <a href="http://www.mapquest.com/" target="_blank">MapQuest</a> <img src="http://developer.mapquest.com/content/osm/mq_logo.png">. Map data (c) <a href="http://www.openstreetmap.org/" target="_blank">OpenStreetMap</a> contributors, CC-BY-SA.'
-        });
-        var mapquestOAM = L.tileLayer("http://{s}.mqcdn.com/tiles/1.0.0/sat/{z}/{x}/{y}.jpg", {
-            maxZoom: 18,
-            subdomains: ["oatile1", "oatile2", "oatile3", "oatile4"],
-            attribution: 'Tiles courtesy of <a href="http://www.mapquest.com/" target="_blank">MapQuest</a>. Portions Courtesy NASA/JPL-Caltech and U.S. Depart. of Agriculture, Farm Service Agency'
-        });
-        var mapquestHYB = L.layerGroup([L.tileLayer("http://{s}.mqcdn.com/tiles/1.0.0/sat/{z}/{x}/{y}.jpg", {
-            maxZoom: 18,
-            subdomains: ["oatile1", "oatile2", "oatile3", "oatile4"]
-        }), L.tileLayer("http://{s}.mqcdn.com/tiles/1.0.0/hyb/{z}/{x}/{y}.png", {
-            maxZoom: 19,
-            subdomains: ["oatile1", "oatile2", "oatile3", "oatile4"],
-            attribution: 'Labels courtesy of <a href="http://www.mapquest.com/" target="_blank">MapQuest</a> <img src="http://developer.mapquest.com/content/osm/mq_logo.png">. Map data (c) <a href="http://www.openstreetmap.org/" target="_blank">OpenStreetMap</a> contributors, CC-BY-SA. Portions Courtesy NASA/JPL-Caltech and U.S. Depart. of Agriculture, Farm Service Agency'
-        })]);
-
         // custom basemap
         var backgroundTiles= L.tileLayer('http://a.tiles.mapbox.com/v3/hillcrestgeo.map-kn42hxnd/{z}/{x}/{y}.png');
+
+        function highlightFeature(e) {
+            var layer = e.target;
+
+            layer.setStyle({
+                weight: 3,
+                color: '#666',
+                dashArray: '',
+                fillOpacity: 0.7
+            });
+
+            if (!L.Browser.ie && !L.Browser.opera) {
+                layer.bringToFront();
+            }
+            info.update(layer.feature.properties);
+        }
+
+        function resetHighlight(e) {
+            watersheds.resetStyle(e.target);
+            info.update();
+        }
+
+        function zoomToFeature(e) {
+            map.fitBounds(e.target.getBounds());
+        }
+
+        function getColor(wsd) {
+            return wsd == 'Blue Heron Creek Watershed' ? '#1f78b4' :
+                   wsd == 'Chalet Creek Watershed'     ? '#e31a1c':
+                   wsd == 'Colquitz River Watershed'   ? '#6a3d9a' :
+                   wsd == 'Hagan Creek Watershed'      ? '#33a02c' :
+                   wsd == 'Reay Creek Watershed'       ? '#ff7f00' :
+                   wsd == 'Ten-Ten Creek Watershed'    ? '#a6cee3':
+                   wsd == 'Tetayut Creek Watershed'    ? '#fdbf6f' :
+                   wsd == 'Tod Creek Watershed'        ? '#fb9a99':
+                   wsd == 'Wsikem Creek Watershed'     ? '#b2df8a':
+                                                        '#bdbdbd';
+        }
+
+
 
         // Overlay Layers
         var watersheds = L.geoJson(null, {
             style: function (feature) {
                 return {
-                    color: 'red',
+                    color: '#636363',
                     weight: 1,
-                    fillColor: '#f03',
-                    fillOpacity: 0.1
+                    fillColor: getColor(feature.properties.Name),
+                    fillOpacity: 0.2
 
                 };
             },
             onEachFeature: function (feature, layer) {
-
-                layer.bindPopup(feature.properties.Name);
+                layer.on({
+                        mouseover: highlightFeature,
+                        mouseout: resetHighlight,
+                        click: zoomToFeature
+                    });
 
                 watershedSearch.push({
                     value: layer.feature.properties.Name,
@@ -369,6 +404,24 @@
         });
 
 
+        // Add watershed name display on mouseover as a control
+        // Direct from leaflet tutorial.
+        var info = L.control();
+
+        info.onAdd = function (map) {
+            this._div = L.DomUtil.create('div', 'info'); // create a div with a class "info"
+            this.update();
+            return this._div;
+        };
+
+        // method that we will use to update the control based on feature properties passed
+        info.update = function (props) {
+            this._div.innerHTML = '<h4>Watershed Name</h4>' +  (props ?
+                '<b>' + props.Name + '</b>'
+                : 'Hover over a watershed');
+        };
+
+        info.addTo(map);
 
         // Hack to preserver layer order in Layer control
         // map.removeLayer(subwayLines);
