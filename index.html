@@ -342,6 +342,7 @@
         }
 
         function zoomToFeature(e) {
+            var layer = e.target;
             map.fitBounds(e.target.getBounds());
             info.update(layer.feature.properties);
         }
