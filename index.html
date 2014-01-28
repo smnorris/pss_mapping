@@ -183,7 +183,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title">Welcome to the BootLeaf template!</h4>
+                    <h4 class="modal-title">Welcome to the Peninsula Streams Society Watershed Explorer!</h4>
                 </div>
 
                 <div class="modal-body">
@@ -193,43 +193,39 @@
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-globe"></i>&nbsp;Metadata <b class="caret"></b></a>
                             <ul class="dropdown-menu">
-                                <li><a href="#boroughs-tab" data-toggle="tab">Boroughs</a></li>
+                                <li><a href="#watersheds-tab" data-toggle="tab">Watersheds</a></li>
+                                <li><a href="#basemaps-tab" data-toggle="tab">Basemap</a></li>
+                                 <li><a href="#credits-tab" data-toggle="tab">Credits</a></li>
                             </ul>
                         </li>
                     </ul>
                     <div id="aboutTabsContent" class="tab-content" style="padding-top: 10px;">
                         <div class="tab-pane fade active in" id="about">
-                            <p>A simple template for building web mapping applications with <a href="http://getbootstrap.com/">Bootstrap 3</a> and <a href="http://leafletjs.com/" target="_blank">Leaflet</a>.</p>
+                            <p>A simple tool for exploring PSS watersheds and activities.</p>
                             <div class="panel panel-primary">
                                 <div class="panel-heading">
                                     Features
                                 </div>
                                 <ul class="list-group">
-                                    <li class="list-group-item">Fullscreen mobile-friendly map template with responsive navbar and modal placeholders</li>
-                                    <li class="list-group-item">jQuery loading of external GeoJSON files</li>
-                                    <li class="list-group-item">Elegant client-side multi-layer feature search with autocomplete using <a href="http://twitter.github.io/typeahead.js/" target="_blank">typeahead.js</a></li>
-                                    <li class="list-group-item">Integration of Bootstrap tables into Leaflet popups</li>
-                                    <li class="list-group-item">Logic for minimizing layer control and removing scale control on small screens</li>
-                                    <li class="list-group-item">Marker icons included in layer control</li>
+                                    <li class="list-group-item">View and search for Saanich Peninsual watersheds</li>
+                                    <li class="list-group-item">View and search for PSS restoration activities</li>
                                 </ul>
                             </div>
                         </div>
                         <div class="tab-pane fade text-danger" id="disclaimer">
                             <p>The data provided on this site is for informational and planning purposes only.</p>
-                            <p>Absolutely no accuracy or completeness guarantee is implied or intended. All information on this map is subject to such variations and corrections as might result from a complete title search and/or accurate field survey.</p>
+
                         </div>
-                        <div class="tab-pane fade" id="boroughs-tab">
-                            <p>Borough data courtesy of <a href="http://www.nyc.gov/html/dcp/html/bytes/meta_dis_nyboroughwi.shtml" target="_blank">New York City Department of City Planning</a></p>
+                        <div class="tab-pane fade" id="watersheds-tab">
+                            <p>Watershed data courtesy of <a href="http://www.crd.bc.ca" target="_blank">Capital Regional District</a></p>
                         </div>
-                        <div class="tab-pane fade" id="subway-lines-tab">
-                            <p><a href="http://spatialityblog.com/2010/07/08/mta-gis-data-update/#datalinks" target="_blank">MTA Subway data</a> courtesy of the <a href="http://www.urbanresearch.org/about/cur-components/cuny-mapping-service" target="_blank">CUNY Mapping Service at the Center for Urban Research</a></p>
+                        <div class="tab-pane fade" id="basemaps-tab">
+                            <p>Basemap data courtesy of <a href="https://www.mapbox.com/about/maps" target="_blank">MapBox</a> and OpenStreetMap contributors</p>
                         </div>
-                        <div class="tab-pane fade" id="theaters-tab">
-                            <p>Theater data courtesy of <a href="https://data.cityofnewyork.us/Recreation/Theaters/kdu2-865w" target="_blank">NYC Department of Information & Telecommunications (DoITT)</a></p>
+                        <div class="tab-pane fade" id="credits-tab">
+                            <p>App built by <a href="https://www.hillcrestgeo.ca" target="_blank">Hillcrest Geographics</a> using @brymcbride's <a href="https://github.com/bmcbride/bootleaf" target="_blandk"> Bootleaf</a> Leaflet/Bootstrap template.</p>
                         </div>
-                        <div class="tab-pane fade" id="museums-tab">
-                            <p>Museum data courtesy of <a href="https://data.cityofnewyork.us/Recreation/Museums-and-Galleries/sat5-adpb" target="_blank">NYC Department of Information & Telecommunications (DoITT)</a></p>
-                        </div>
+
                     </div>
                 </div>
             </div><!-- /.modal-content -->
