@@ -104,7 +104,7 @@
                 border-radius: 5px;
         }
         .info h4 {
-                margin: 0 0 5px;
+                margin: 0 0;
                 color: #777;
         }
         @media (max-width: 992px) {
@@ -151,7 +151,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Peninsula Streams Society Watersheds</a>
+            <a class="navbar-brand" href="#">Watersheds of the Saanich Peninsula</a>
         </div>
         <div class="navbar-collapse collapse" id="navbar-collapse">
             <form class="navbar-form navbar-right">
@@ -357,7 +357,7 @@
                    wsd == 'Tetayut Creek Watershed'    ? '#fdbf6f' :
                    wsd == 'Tod Creek Watershed'        ? '#fb9a99':
                    wsd == 'Wsikem Creek Watershed'     ? '#b2df8a':
-                   wsd == 'Swan/Blenkinsop'            ? '#cab2d6':
+                   wsd == 'Swan/Blenkinsop Watershed'  ? '#cab2d6':
                                                         '#bdbdbd';
         }
 
@@ -370,7 +370,7 @@
                     color: '#636363',
                     weight: 1,
                     fillColor: getColor(feature.properties.Name),
-                    fillOpacity: 0.2
+                    fillOpacity: 0.4
 
                 };
             },
@@ -402,7 +402,8 @@
 
         map = L.map("map", {
             zoom: 11,
-            center: new L.LatLng(48.58, -123.42),
+            minZoom: 10,
+            center: new L.LatLng(48.56, -123.42),
             layers: [backgroundTiles, watersheds]
         });
 
@@ -419,8 +420,8 @@
 
         // method that we will use to update the control based on feature properties passed
         info.update = function (props) {
-            this._div.innerHTML = '<h4>Watershed Name</h4>' +  (props ?
-                '<b>' + props.Name + '</b>'
+            this._div.innerHTML = (props ?
+                '<h4><b>' + props.Name + '</b><h4>'
                 : 'Hover over a watershed');
         };
 
