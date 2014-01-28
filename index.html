@@ -343,6 +343,7 @@
 
         function zoomToFeature(e) {
             map.fitBounds(e.target.getBounds());
+            info.update(layer.feature.properties);
         }
 
         function getColor(wsd) {
