@@ -316,14 +316,21 @@
         // custom basemap
         var backgroundTiles= L.tileLayer('http://a.tiles.mapbox.com/v3/hillcrestgeo.map-kn42hxnd/{z}/{x}/{y}.png');
 
+        // imagery
+        var orthophotos = L.tileLayer.wms("http://geodata.crdatlas.ca/arcgis/services/aerial/MapServer/WMSServer?", {
+            layers: '23',
+            format: 'image/png',
+            transparent: false
+        });
+
         function highlightFeature(e) {
             var layer = e.target;
 
             layer.setStyle({
-                weight: 3,
-                color: '#666',
+                weight: 4,
+                color: 'white',
                 dashArray: '',
-                fillOpacity: 0.5
+                fillOpacity: 0.6
             });
 
             if (!L.Browser.ie && !L.Browser.opera) {
@@ -360,14 +367,26 @@
 
 
         // Overlay Layers
+        var watershedOutlines = L.geoJson(null, {
+            style: function (feature) {
+                return {
+                    weight: 2,
+                    fillColor: 'white',
+                    color: 'white',
+                    dashArray: '3',
+                    fillOpacity: 0
+                };
+            },
+        });
+
         var watersheds = L.geoJson(null, {
             style: function (feature) {
                 return {
-                    color: '#636363',
-                    weight: 1,
+                    weight: 2,
                     fillColor: getColor(feature.properties.Name),
+                    color: 'white',
+                    dashArray: '3',
                     fillOpacity: 0.4
-
                 };
             },
             onEachFeature: function (feature, layer) {
@@ -391,6 +410,7 @@
         var watersheds_uri = $('link[rel="location"]').attr("href");
 
         $.getJSON(watersheds_uri, function (data) {
+            watershedOutlines.addData(data);
             watersheds.addData(data);
         }).complete(function () {
         });
@@ -400,7 +420,7 @@
             zoom: 11,
             minZoom: 10,
             center: new L.LatLng(48.56, -123.42),
-            layers: [backgroundTiles, watersheds]
+            layers: [backgroundTiles, watershedOutlines, watersheds]
         });
 
 
@@ -437,7 +457,8 @@
         };
 
         var baseLayers = {
-            "Streets": backgroundTiles
+            "Streets": backgroundTiles,
+            "Orthophotos": orthophotos
         };
 
         var overlays = {
