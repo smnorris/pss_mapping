@@ -8,10 +8,9 @@ Forked from [bootleaf](http://bmcbride.github.io/bootleaf)
 View current page here: http://smnorris.github.io/pss_mapping
 
 ### Next steps:
-* link contact info
 * add streams
 * add contours
-* add imagery
+* complete metadata
 * search for place names to zoom to (BCGNIS clipped to area of interest)
 * add PSS photo points
 
