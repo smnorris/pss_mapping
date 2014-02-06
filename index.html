@@ -98,12 +98,14 @@
         .info {
                 padding: 6px 8px;
                 font: 14px/16px Arial, Helvetica, sans-serif;
+                text-align: center;
                 background: white;
                 background: rgba(255,255,255,0.8);
                 box-shadow: 0 0 15px rgba(0,0,0,0.2);
                 border-radius: 5px;
         }
         .info h4 {
+                font: 32px/32px Arial, Helvetica, sans-serif;;
                 margin: 0 0;
 
         }
@@ -220,7 +222,8 @@
                             <p>Watershed data courtesy of <a href="http://www.crd.bc.ca" target="_blank">Capital Regional District</a></p>
                         </div>
                         <div class="tab-pane fade" id="basemaps-tab">
-                            <p>Basemap data courtesy of <a href="https://www.mapbox.com/about/maps" target="_blank">MapBox</a> and OpenStreetMap contributors</p>
+                            <p>Basemap data courtesy of OpenStreetMap contributors</p>
+                            <p>Tiles provided by <a href="https://www.mapbox.com/about/maps" target="_blank">MapBox</a> and <a href="http://www.thunderforest.com/" target="_blank">Thunderforest</a>
                         </div>
                         <div class="tab-pane fade" id="credits-tab">
                             <p>App built by <a href="http://www.hillcrestgeo.ca" target="_blank">Hillcrest Geographics</a> using @brymcbride's <a href="https://github.com/bmcbride/bootleaf" target="_blandk"> Bootleaf</a> Leaflet/Bootstrap template.</p>
@@ -453,7 +456,7 @@
         info.update = function (props) {
             this._div.innerHTML = (props ?
                 '<h4><b>' + props.Name + '</b><h4>'
-                : 'Hover over a watershed');
+                : 'Hover over a watershed<br>Double click to zoom to a watershed');
         };
 
         info.addTo(map);
