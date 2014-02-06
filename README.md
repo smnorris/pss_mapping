@@ -13,4 +13,3 @@ View current page here: http://smnorris.github.io/pss_mapping
 * complete metadata
 * search for place names to zoom to (BCGNIS clipped to area of interest)
 * add PSS photo points
-
