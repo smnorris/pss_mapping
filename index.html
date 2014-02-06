@@ -341,28 +341,13 @@
             info.update(layer.feature.properties);
         }
 
-        function highlightFeature2(e) {
-            var layer = e.target;
-
-            layer.setStyle({
-                weight: 4,
-                color: 'white',
-                dashArray: '',
-            });
-
-            if (!L.Browser.ie && !L.Browser.opera) {
-                layer.bringToFront();
-            }
-            info.update(layer.feature.properties);
-        }
-
         function resetHighlight(e) {
             watersheds.resetStyle(e.target);
             info.update();
         }
 
         function resetHighlight2(e) {
-            watershedOutlines.resetStyle(e.target);
+            watershedColors.resetStyle(e.target);
             info.update();
         }
 
@@ -398,6 +383,13 @@
                     color: 'white',
                     fillOpacity: 0.3
                 };
+            },
+            onEachFeature: function (feature, layer) {
+                layer.on({
+                        mouseover: highlightFeature,
+                        mouseout: resetHighlight2,
+                        dblclick: zoomToFeature
+                    });
             }
         });
 
@@ -487,6 +479,7 @@
         };
 
         var overlays = {
+            "Watershed colors":watershedColors
         };
 
         var layerControl = L.control.layers(baseLayers, overlays, {
