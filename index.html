@@ -105,7 +105,7 @@
         }
         .info h4 {
                 margin: 0 0;
-                color: #777;
+
         }
         @media (max-width: 992px) {
             .navbar .navbar-brand {
@@ -313,8 +313,10 @@
     <script type="text/javascript">
         var map, watershedSearch = [];
 
-        // custom basemap
-        var backgroundTiles= L.tileLayer('http://a.tiles.mapbox.com/v3/hillcrestgeo.map-kn42hxnd/{z}/{x}/{y}.png');
+        // custom basemaps
+        var bwTiles= L.tileLayer('http://a.tiles.mapbox.com/v3/hillcrestgeo.map-kn42hxnd/{z}/{x}/{y}.png');
+        var landscape= L.tileLayer('http://a.tile.thunderforest.com/landscape/{z}/{x}/{y}.png');
+        //var outdoors= L.tileLayer('http://a.tile.thunderforest.com/outdoors/{z}/{x}/{y}.png');
 
         // imagery
         var orthophotos = L.tileLayer.wms("http://geodata.crdatlas.ca/arcgis/services/aerial/MapServer/WMSServer?", {
@@ -330,7 +332,22 @@
                 weight: 4,
                 color: 'white',
                 dashArray: '',
-                fillOpacity: 0.6
+                fillOpacity: 0.4
+            });
+
+            if (!L.Browser.ie && !L.Browser.opera) {
+                layer.bringToFront();
+            }
+            info.update(layer.feature.properties);
+        }
+
+        function highlightFeature2(e) {
+            var layer = e.target;
+
+            layer.setStyle({
+                weight: 4,
+                color: 'white',
+                dashArray: '',
             });
 
             if (!L.Browser.ie && !L.Browser.opera) {
@@ -341,6 +358,11 @@
 
         function resetHighlight(e) {
             watersheds.resetStyle(e.target);
+            info.update();
+        }
+
+        function resetHighlight2(e) {
+            watershedOutlines.resetStyle(e.target);
             info.update();
         }
 
@@ -370,13 +392,13 @@
         var watershedOutlines = L.geoJson(null, {
             style: function (feature) {
                 return {
-                    weight: 2,
+                    weight: 3,
                     fillColor: 'white',
                     color: 'white',
-                    dashArray: '3',
+                    dashArray: '4',
                     fillOpacity: 0
                 };
-            },
+            }
         });
 
         var watersheds = L.geoJson(null, {
@@ -386,14 +408,14 @@
                     fillColor: getColor(feature.properties.Name),
                     color: 'white',
                     dashArray: '3',
-                    fillOpacity: 0.4
+                    fillOpacity: 0.25
                 };
             },
             onEachFeature: function (feature, layer) {
                 layer.on({
                         mouseover: highlightFeature,
-                        mouseout: resetHighlight,
-                        click: zoomToFeature
+                        mouseout: resetHighlight
+                        //,click: zoomToFeature
                     });
 
                 watershedSearch.push({
@@ -420,7 +442,7 @@
             zoom: 11,
             minZoom: 10,
             center: new L.LatLng(48.56, -123.42),
-            layers: [backgroundTiles, watershedOutlines, watersheds]
+            layers: [bwTiles, watershedOutlines, watersheds]
         });
 
 
@@ -457,12 +479,15 @@
         };
 
         var baseLayers = {
-            "Streets": backgroundTiles,
+            "Streets": bwTiles,
+            "Terrain": landscape,
+            //"Outdoors": outdoors,
             "Orthophotos": orthophotos
         };
 
         var overlays = {
-            "Watersheds": watersheds
+          "Watershed Colors":watersheds
+
         };
 
         var layerControl = L.control.layers(baseLayers, overlays, {
