@@ -330,9 +330,9 @@
 
             layer.setStyle({
                 weight: 4,
-                color: 'white',
-                dashArray: '',
-                fillOpacity: 0.4
+                color: 'yellow',
+                dashArray: ''
+                //fillOpacity: 0.4
             });
 
             if (!L.Browser.ie && !L.Browser.opera) {
@@ -389,14 +389,14 @@
 
 
         // Overlay Layers
-        var watershedOutlines = L.geoJson(null, {
+        var watershedColors = L.geoJson(null, {
             style: function (feature) {
                 return {
-                    weight: 3,
-                    fillColor: 'white',
+                    weight: 0,
+                    //fillColor: 'white',
+                    fillColor: getColor(feature.properties.Name),
                     color: 'white',
-                    dashArray: '4',
-                    fillOpacity: 0
+                    fillOpacity: 0.3
                 };
             }
         });
@@ -405,17 +405,18 @@
             style: function (feature) {
                 return {
                     weight: 2,
-                    fillColor: getColor(feature.properties.Name),
+                    fillColor:'white',
+                    //fillColor: getColor(feature.properties.Name),
                     color: 'white',
                     dashArray: '3',
-                    fillOpacity: 0.25
+                    fillOpacity: 0
                 };
             },
             onEachFeature: function (feature, layer) {
                 layer.on({
                         mouseover: highlightFeature,
-                        mouseout: resetHighlight
-                        //,click: zoomToFeature
+                        mouseout: resetHighlight,
+                        dblclick: zoomToFeature
                     });
 
                 watershedSearch.push({
@@ -432,7 +433,7 @@
         var watersheds_uri = $('link[rel="location"]').attr("href");
 
         $.getJSON(watersheds_uri, function (data) {
-            watershedOutlines.addData(data);
+            watershedColors.addData(data);
             watersheds.addData(data);
         }).complete(function () {
         });
@@ -442,7 +443,7 @@
             zoom: 11,
             minZoom: 10,
             center: new L.LatLng(48.56, -123.42),
-            layers: [bwTiles, watershedOutlines, watersheds]
+            layers: [bwTiles, watershedColors, watersheds]
         });
 
 
@@ -486,13 +487,17 @@
         };
 
         var overlays = {
-          "Watershed Colors":watersheds
-
         };
 
         var layerControl = L.control.layers(baseLayers, overlays, {
             collapsed: isCollapsed
         }).addTo(map);
+
+        //var opacitySlider = new L.Control.opacitySlider();
+        //map.addControl(opacitySlider);
+
+        //You only need to call it once.
+        //opacitySlider.setOpacityLayer(watershedColors);
 
         // Highlight search box text on click
         $("#searchbox").click(function () {
