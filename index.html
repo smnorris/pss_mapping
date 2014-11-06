@@ -319,14 +319,36 @@
         // custom basemaps
         var bwTiles= L.tileLayer('http://a.tiles.mapbox.com/v3/hillcrestgeo.map-kn42hxnd/{z}/{x}/{y}.png');
         var landscape= L.tileLayer('http://a.tile.thunderforest.com/landscape/{z}/{x}/{y}.png');
-        //var outdoors= L.tileLayer('http://a.tile.thunderforest.com/outdoors/{z}/{x}/{y}.png');
-
-        // imagery
-        var orthophotos = L.tileLayer.wms("http://geodata.crdatlas.ca/arcgis/services/aerial/MapServer/WMSServer?", {
-            layers: '23',
+        var outdoors= L.tileLayer('http://a.tile.thunderforest.com/outdoors/{z}/{x}/{y}.png');
+        var crdbase = L.tileLayer.wms("http://mapservices.crd.bc.ca/arcgis/services/BaseWMS/MapServer/WMSServer", {
+            layers: '78',
             format: 'image/png',
-            transparent: false
+            transparent: true
         });
+
+        // imagery, 10cm
+        var orthophotos10 = L.tileLayer.wms("http://mapservices.crd.bc.ca/arcgis/services/Aerial/MapServer/WMSServer", {
+            layers: '78',
+            format: 'image/png',
+            transparent: true
+        });
+
+        // imagery, 20cm
+        var orthophotos20 = L.tileLayer.wms("http://mapservices.crd.bc.ca/arcgis/services/Aerial/MapServer/WMSServer", {
+            layers: '74',
+            format: 'image/png',
+            transparent: true
+        });
+
+        // imagery, 30cm
+        var orthophotos30 = L.tileLayer.wms("http://mapservices.crd.bc.ca/arcgis/services/Aerial/MapServer/WMSServer", {
+            layers: '70',
+            format: 'image/png',
+            transparent: true
+        });
+
+        // group all orthophotos in a single layer group
+        var orthophotos = L.layerGroup([orthophotos10, orthophotos20, orthophotos30]);
 
         function highlightFeature(e) {
             var layer = e.target;
@@ -475,10 +497,10 @@
         };
 
         var baseLayers = {
-            "Streets": bwTiles,
-            "Terrain": landscape,
-            //"Outdoors": outdoors,
-            "Orthophotos": orthophotos
+            "Streets monochrome": bwTiles,
+            "Terrain - landscape": landscape,
+            "Terrain - outdoors": outdoors,
+            "CRD Orthophotos": orthophotos
         };
 
         var overlays = {
