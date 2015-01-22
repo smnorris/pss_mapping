@@ -318,13 +318,15 @@
 
         // custom basemaps
         var bwTiles= L.tileLayer('http://a.tiles.mapbox.com/v3/hillcrestgeo.map-kn42hxnd/{z}/{x}/{y}.png');
-        var landscape= L.tileLayer('http://a.tile.thunderforest.com/landscape/{z}/{x}/{y}.png');
-        var outdoors= L.tileLayer('http://a.tile.thunderforest.com/outdoors/{z}/{x}/{y}.png');
+        var terrain= L.tileLayer('http://a.tiles.mapbox.com/v3/hillcrestgeo.a3abe746/{z}/{x}/{y}.png');
         var crdbase = L.tileLayer.wms("http://mapservices.crd.bc.ca/arcgis/services/BaseWMS/MapServer/WMSServer", {
             layers: '78',
             format: 'image/png',
             transparent: true
         });
+
+        // crd Streams
+        var crdstreams = L.tileLayer('http://a.tiles.mapbox.com/v3/hillcrestgeo.3nx6flxr/{z}/{x}/{y}.png');
 
         // crd street addresses
         var streetaddresses = L.tileLayer.wms("http://mapservices.crd.bc.ca/arcgis/services/BaseWMS/MapServer/WMSServer", {
@@ -362,7 +364,7 @@
         });
 
         // group all orthophotos in a single layer group
-        var orthophotos = L.layerGroup([orthophotos30, orthophotos20, orthophotos10,lotboundaries,streetaddresses]);
+        var orthophotos = L.layerGroup([orthophotos30, orthophotos20, orthophotos10, crdstreams, lotboundaries,streetaddresses]);
 
         function highlightFeature(e) {
             var layer = e.target;
@@ -513,8 +515,7 @@
 
         var baseLayers = {
             "Streets monochrome": bwTiles,
-            "Terrain - landscape": landscape,
-            "Terrain - outdoors": outdoors,
+            "Terrain": terrain,
             "CRD Orthophotos": orthophotos
         };
 
