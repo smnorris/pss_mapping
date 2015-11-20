@@ -16,6 +16,9 @@
     <!-- Link to geojson data as per  http://sgillies.net/blog/2013/10/08/linking-geojson.html -->
     <link rel="location" type="application/json" href="data/pss_wsds.geojson"/>
 
+    <!-- Mapbox GL -->
+    <link href="https://api.tiles.mapbox.com/mapbox-gl-js/v0.11.2/mapbox-gl.css" rel='stylesheet' />
+
     <!-- Custom styles for this template -->
     <style>
         html, body, #map {
@@ -313,12 +316,20 @@
     <script type="text/javascript" src="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="assets/typeahead.js/typeahead.min.js"></script> <!--https://github.com/twitter/typeahead.js/-->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.js"></script>
+    <script type="text/javascript" src="https://api.tiles.mapbox.com/mapbox-gl-js/v0.11.2/mapbox-gl.js"></script>
+    <script type="text/javascript" src="assets/leaflet-mapbox-gl.js"></script>
     <script type="text/javascript">
         var map, watershedSearch = [];
 
         // custom basemaps
         var bwTiles= L.tileLayer('http://a.tiles.mapbox.com/v3/hillcrestgeo.map-kn42hxnd/{z}/{x}/{y}.png');
-        var terrain= L.tileLayer('http://a.tiles.mapbox.com/v3/hillcrestgeo.a3abe746/{z}/{x}/{y}.png');
+
+        var token = 'pk.eyJ1IjoiaGlsbGNyZXN0Z2VvIiwiYSI6IjREMjlhTlkifQ.-fItotK2VgCxPHt4ocoMYA';
+        var terrain = L.mapboxGL({
+                                accessToken: token,
+                                style: 'mapbox://styles/hillcrestgeo/cih84otxe0006aklzgxi2uev1'
+                              });
+
         var crdbase = L.tileLayer.wms("http://mapservices.crd.bc.ca/arcgis/services/BaseWMS/MapServer/WMSServer", {
             layers: '78',
             format: 'image/png',
@@ -475,7 +486,7 @@
         map = L.map("map", {
             zoom: 11,
             minZoom: 11,
-            maxZoom: 18,
+            maxZoom: 17,
             center: new L.LatLng(48.56, -123.42),
             layers: [bwTiles, watershedColors, watersheds]
         });
