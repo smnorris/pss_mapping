@@ -323,11 +323,11 @@
         var token = 'pk.eyJ1IjoiaGlsbGNyZXN0Z2VvIiwiYSI6IjREMjlhTlkifQ.-fItotK2VgCxPHt4ocoMYA'
 
         // custom basemaps
-        var bwTiles = L.mapboxGL({
-                                accessToken: token,
-                                style: 'mapbox://styles/hillcrestgeo/cih86koop000e91kxm25buu8u'
-                              });
-
+        //var bwTiles = L.mapboxGL({
+        //                        accessToken: token,
+        //                        style: 'mapbox://styles/hillcrestgeo/cih86koop000e91kxm25buu8u'
+        //                      });
+        var bwTiles= L.tileLayer('http://a.tiles.mapbox.com/v3/'hillcrestgeo.05ed4c1a'/{z}/{x}/{y}.png');
         var terrain = L.mapboxGL({
                                 accessToken: token,
                                 style: 'mapbox://styles/hillcrestgeo/cih84otxe0006aklzgxi2uev1'
