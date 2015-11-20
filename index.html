@@ -320,11 +320,14 @@
     <script type="text/javascript" src="assets/leaflet-mapbox-gl.js"></script>
     <script type="text/javascript">
         var map, watershedSearch = [];
+        var token = 'pk.eyJ1IjoiaGlsbGNyZXN0Z2VvIiwiYSI6IjREMjlhTlkifQ.-fItotK2VgCxPHt4ocoMYA'
 
         // custom basemaps
-        var bwTiles= L.tileLayer('http://a.tiles.mapbox.com/v3/hillcrestgeo.map-kn42hxnd/{z}/{x}/{y}.png');
+        var bwTiles = L.mapboxGL({
+                                accessToken: token,
+                                style: 'mapbox://styles/hillcrestgeo/cih86koop000e91kxm25buu8u'
+                              });
 
-        var token = 'pk.eyJ1IjoiaGlsbGNyZXN0Z2VvIiwiYSI6IjREMjlhTlkifQ.-fItotK2VgCxPHt4ocoMYA';
         var terrain = L.mapboxGL({
                                 accessToken: token,
                                 style: 'mapbox://styles/hillcrestgeo/cih84otxe0006aklzgxi2uev1'
