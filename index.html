@@ -353,28 +353,21 @@
         });
 
         // imagery, 10cm
-        var orthophotos10 = L.tileLayer.wms("http://mapservices.crd.bc.ca/arcgis/services/Aerial/MapServer/WMSServer", {
-            layers: '78',
+        var orthophotos10 = L.tileLayer.wms("http://mapservices.crd.bc.ca/arcgis/services/Ortho2015/MapServer/WMSServer", {
+            layers: '5',
             format: 'image/png',
             transparent: true
         });
 
         // imagery, 20cm
-        var orthophotos20 = L.tileLayer.wms("http://mapservices.crd.bc.ca/arcgis/services/Aerial/MapServer/WMSServer", {
-            layers: '74',
-            format: 'image/png',
-            transparent: true
-        });
-
-        // imagery, 30cm
-        var orthophotos30 = L.tileLayer.wms("http://mapservices.crd.bc.ca/arcgis/services/Aerial/MapServer/WMSServer", {
-            layers: '70',
+        var orthophotos20 = L.tileLayer.wms("http://mapservices.crd.bc.ca/arcgis/services/Ortho2015/MapServer/WMSServer", {
+            layers: '1',
             format: 'image/png',
             transparent: true
         });
 
         // group all orthophotos in a single layer group
-        var orthophotos = L.layerGroup([orthophotos30, orthophotos20, orthophotos10, crdstreams, lotboundaries,streetaddresses]);
+        var orthophotos = L.layerGroup([orthophotos20, orthophotos10]);
 
         function highlightFeature(e) {
             var layer = e.target;
