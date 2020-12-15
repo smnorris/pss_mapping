@@ -265,7 +265,9 @@
         var token = 'pk.eyJ1IjoiaGlsbGNyZXN0Z2VvIiwiYSI6IjREMjlhTlkifQ.-fItotK2VgCxPHt4ocoMYA'
 
         // custom basemaps
-        var bwTiles= L.tileLayer('http://a.tiles.mapbox.com/v3/hillcrestgeo.05ed4c1a/{z}/{x}/{y}.png');
+        //var bwTiles= L.tileLayer('http://a.tiles.mapbox.com/v3/hillcrestgeo.05ed4c1a/{z}/{x}/{y}.png');
+        var esriTopo = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}.png');
+
         var terrain = L.mapboxGL({
                                 accessToken: token,
                                 style: 'mapbox://styles/hillcrestgeo/cih84otxe0006aklzgxi2uev1'
@@ -422,7 +424,7 @@
             minZoom: 11,
             maxZoom: 17,
             center: new L.LatLng(48.56, -123.42),
-            layers: [bwTiles, watershedColors, watersheds]
+            layers: [esriTopo, watershedColors, watersheds]
         });
 
 
@@ -459,9 +461,9 @@
         };
 
         var baseLayers = {
-            "Streets monochrome": bwTiles,
             "Terrain": terrain,
-            "CRD Orthophotos": orthophotos
+            "ESRI topotgraphic": esriTopo,
+            "CRD orthophotos": orthophotos
         };
 
         var overlays = {
